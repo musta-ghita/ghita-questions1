@@ -1,8 +1,10 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Love Questions</title>  <style>
+  <title>Love Questions</title>
+  <style>
     body {
       margin: 0;
       font-family: "Tahoma", sans-serif;
@@ -28,7 +30,7 @@
     #question {
       font-size: 22px;
       line-height: 2;
-      min-height: 220px;
+      min-height: 280px;
       margin-bottom: 25px;
       white-space: pre-line;
       word-break: break-word;
@@ -68,12 +70,16 @@
         opacity: 0;
       }
     }
-  </style></head><body>
+  </style>
+</head>
+<body>
   <div class="container">
-    <div id="question"></div><button id="yesBtn">نعم 💚</button>
-<button id="noBtn">لا ❤</button>
+    <div id="question"></div>
+    <button id="yesBtn">نعم 💚</button>
+    <button id="noBtn">لا ❤</button>
+  </div>
 
-  </div>  <script>
+  <script>
     const data = [
 `تحبيني كثر من بطاطا مقلية 😂🙂؟\nاذا لا.  لحق زمان وين وليت نغير من بطاطا وباغي نحرقها`,
 `أنا مليح فعيونك حتى كي نكون مبرهش 🐼؟\nاذا لا.  🌚🌚 واللي بيسمع كلمة...؟  اسيري مشتيش تبرهيشك`,
@@ -109,33 +115,44 @@
 `وفي الاخير كيعجبك مين نبقى نطنز عليك ولا تدزعي 🐥\nاذا لا.  مالكي نني ڨع مندحكوش معاااك ولا شاه؟  🙂💋`
 ];
 
-    let i = 0;
-    const qDiv = document.getElementById("question");
+const qDiv = document.getElementById("question");
+let i = 0;
 
-    function show() {
-      if (i >= data.length) return;
-      qDiv.textContent = data[i];
-    }
+function show() {
+  if (i >= data.length) return;
+  const questionOnly = data[i].split("\n")[0]; 
+  qDiv.textContent = questionOnly;
+}
 
-    function hearts() {
-      for (let j = 0; j < 6; j++) {
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.textContent = Math.random() > 0.5 ? "💗" : "😂";
-        h.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 3000);
-      }
-    }
+function hearts() {
+  for (let j = 0; j < 6; j++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = Math.random() > 0.5 ? "💗" : "😂";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+  }
+}
 
-    document.getElementById("yesBtn").onclick = hearts;
+document.getElementById("yesBtn").onclick = () => {
+  hearts();
+  i++;
+  show();
+};
 
-    document.getElementById("noBtn").onclick = () => {
-      hearts();
-      i++;
-      setTimeout(show, 2500);
-    };
-
+document.getElementById("noBtn").onclick = () => {
+  hearts();
+  const answer = data[i].split("\n")[1]; 
+  qDiv.textContent = answer;
+  
+  setTimeout(() => {
+    i++;
     show();
-  </script></body>
+  }, 3000); // الجواب يظهر 3 ثواني فقط
+};
+
+show();
+  </script>
+</body>
 </html>
